@@ -8,7 +8,11 @@ spec:
   targetNamespace: flux-system
   sourceRef:
     kind: GitRepository
-    name: landscape
+    name: flux-system
   path: "./packages/base/apps"
   prune: false
   timeout: 1m
+  postBuild:
+    substituteFrom:
+      - kind: Secret
+        name: coralogix-secret-keys
