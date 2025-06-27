@@ -36,6 +36,10 @@ spec:
     secret:
       data:
         apiKey: "${CX_API_KEY}"
+    serviceMonitor:
+      create: false
     coralogixOperator:
+      prometheusRules:
+        enabled: false
       region: "EU2"
   
