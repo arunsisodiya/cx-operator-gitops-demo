@@ -6,7 +6,7 @@ metadata:
 spec:
   dependsOn:
     - name: landscape-apps
-      namespace: flux-system
+      namespace: landscape-apps
   interval: 5m
   targetNamespace: flux-system
   sourceRef:
