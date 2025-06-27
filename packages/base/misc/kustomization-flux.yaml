@@ -1,0 +1,17 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: landscape-misc
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: landscape-apps
+      namespace: flux-system
+  interval: 5m
+  targetNamespace: flux-system
+  sourceRef:
+    kind: GitRepository
+    name: landscape
+  path: "./packages/base/misc"
+  prune: false
+  timeout: 1m
