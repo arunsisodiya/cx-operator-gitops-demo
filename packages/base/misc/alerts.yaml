@@ -5,16 +5,17 @@ metadata:
     app.kubernetes.io/name: alert
     app.kubernetes.io/part-of: coralogix-operator
     app.kubernetes.io/created-by: coralogix-operator
-  name: logs-unique-count
+  name: logs-immediate-alert
   namespace: landscape-misc
 spec:
-  name: logs-unqiue-count alert example
+  name: operator - logs-immediate alert example
   description: alert from k8s operator
   priority: p2
-  groupByKeys:
-    - response_time
+  entityLabels:
+    alert_type: security
+    security_severity: high
   alertType:
-    logsUniqueCount:
+    logsImmediate:
       logsFilter:
         simpleFilter:
           luceneQuery: remote_addr_enriched:/.*/
@@ -31,13 +32,6 @@ spec:
                 operation: endsWith
             severity: [ "warning", "info" ]
       notificationPayloadFilter: [ "coralogix.metadata.sdkId" ]
-      rules:
-        - condition:
-            timeWindow:
-              specificValue: 5m
-            threshold: 100
-      maxUniqueCountPerGroupByKey: 100
-      uniqueCountKeypath: "response_time"
   notificationGroup:
     webhooks:
       - retriggeringPeriod:
@@ -46,3 +40,9 @@ spec:
           integrationRef:
             resourceRef:
               name: slack-webhook
+  schedule:
+    timeZone: UTC+02
+    activeOn:
+      dayOfWeek: [ "wednesday", "thursday" ]
+      startTime: 08:30
+      endTime: 20:30
