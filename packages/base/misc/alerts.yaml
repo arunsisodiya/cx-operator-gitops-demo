@@ -10,7 +10,7 @@ metadata:
 spec:
   name: operator - logs-immediate alert example
   description: alert from k8s operator
-  priority: p2
+  priority: p1
   entityLabels:
     alert_type: security
     security_severity: high
